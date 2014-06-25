@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  author_id: 1
+  series_id: 1
+  sequence_number: 1
+  isbn: MyString
+  asin: MyString
+  title: MyString
+  notes: MyText
+  link: MyString
+
+two:
+  author_id: 1
+  series_id: 1
+  sequence_number: 1
+  isbn: MyString
+  asin: MyString
+  title: MyString
+  notes: MyText
+  link: MyString
