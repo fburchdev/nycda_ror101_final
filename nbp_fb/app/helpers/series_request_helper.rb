@@ -1,0 +1,2 @@
+module SeriesRequestHelper
+end

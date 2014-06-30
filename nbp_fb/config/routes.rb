@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  get 'series_request/new'
+
+  get 'series_request/create'
+
+  get 'series_request/edit'
+
+  get 'series_request/update'
+
+  get 'series_request/show'
+
+  resources :series_request
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
