@@ -1,2 +1,8 @@
 <h1>Authors#show</h1>
 <p>Find me in app/views/authors/show.html.erb</p>
+Series by 
+<%= @author.first_name + ' ' + @author.last_name + ' ' %>
+include the following:<br/>
+<% @author.series.each do |series| %>
+<%= series.title %><br/>
+<% end %>
