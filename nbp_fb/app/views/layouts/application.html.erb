@@ -7,8 +7,15 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+|
+<%= link_to 'All Authors', root_path %>
+|
+<%= link_to 'Request A Series', new_series_request_path %>
+|
 <%=flash[:notice] if flash[:notice] %> 
 <%=flash[:alert] if flash[:alert] %>
+
+
 <%= yield %>
 
 </body>
