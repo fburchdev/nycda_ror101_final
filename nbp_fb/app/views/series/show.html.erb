@@ -1,11 +1,14 @@
 <h1>Series#show</h1>
 <p>Find me in app/views/series/show.html.erb</p>
 <% author = Author.find_by(id: @series.author_id )%>
-<%= author.first_name + ' ' + author.last_name %><br/>
-<%= @series.title %><br/>
+<% author_name = (author.first_name + ' ' + author.last_name) %>
+<%= link_to author_name, author_path(author) %>
+<p>
+<%= @series.title %></p>
 <% @series.books.each do |book| %>
 <%= book.sequence_number.to_s + '. ' %>
 <%= book.title %><br/>
 <% end %>
-<br/>
+<p>
 <%= @series.notes %>
+</p>
