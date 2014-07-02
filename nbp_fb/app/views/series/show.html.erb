@@ -1,5 +1,7 @@
 <h1>Series#show</h1>
 <p>Find me in app/views/series/show.html.erb</p>
+<% author = Author.find_by(id: @series.author_id )%>
+<%= author.first_name + ' ' + author.last_name %><br/>
 <%= @series.title %><br/>
 <% @series.books.each do |book| %>
 <%= book.sequence_number.to_s + '. ' %>
