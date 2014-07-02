@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
 
-  resources :series_requests, :authors
+  resources :series_requests, :authors, :series
+  root 'authors#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
