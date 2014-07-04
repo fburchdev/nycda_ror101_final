@@ -3,10 +3,11 @@
 <p>Interested in a series that you don't see? Request it here.</p>
 <%= form_for @series_request do |f| %>
   <%=f.label :email %>
-  <%=f.text_field :email %>
+  <%=f.email_field :email %>
   <%=f.label :series %>
   <%=f.text_field :series %>
   <%=f.label :author %>
   <%=f.text_field :author %>
-  <%=f.submit :create %>
+  <%=f.submit 'Request A Series' %>
 <% end %>
+<br/>

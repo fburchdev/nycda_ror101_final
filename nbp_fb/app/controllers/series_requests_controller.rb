@@ -10,6 +10,7 @@ class SeriesRequestsController < ApplicationController
     else
       flash[:alert] = "There was a problem requesting your series."
     end
+    redirect_to new_series_request_path
   end
 
   def edit
