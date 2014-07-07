@@ -107,6 +107,12 @@ namespace :nbp do
             books << Book.new(sequence_number:sequence_number, title:book_title)
             puts book_title + ' Added to the books Array!'
           end
+          if line_array[0] == 'notes:'
+            puts line
+            series.notes = line.gsub('notes:', '').chomp
+            puts series.notes
+            puts 'Series Notes Retrieved!'
+          end
       end
       puts 'Books in ' + series.title + ' are as follows: '
       books.each do |book|
