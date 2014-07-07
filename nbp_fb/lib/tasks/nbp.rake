@@ -30,15 +30,17 @@ namespace :nbp do
   end
 
   def get_series
+    puts 'EXECUTING get_series'
     series = Series.new
     @series_file.each_line do |line|
       line_array = line.split(' ')
-      if line_array[0].to_lower == 'series:'
-        series.title = line_array[1]
+      if line_array[0] == 'series:'
+        series.title = line_array[1].chomp
       end
-      if line_array[0].to_lower == 'notes:'
-        series.notes = line_array[1]
+      if line_array[0] == 'notes:'
+        series.notes = line_array[1].chomp
       end
+    end
     return series
   end
 
@@ -48,37 +50,74 @@ namespace :nbp do
       if line[0].to_i > 0
         line_array = line.split(' ')
         book = Book.new
-        #book.sequence_number = line_array[0] without ':'
-        #TODO: remove line_array[0] from line to retrieve title
+        book.sequence_number = line_array[0].gsub('.', '').chomp.to_i
+        book.title = line.gsub(line_array[0], '').chomp
         books << book 
       end
     end
+    return books
   end
 
   desc "Import book series data from files in .series format."
   task import_book_series: :environment do
+    path = Rails.root.join('lib/book_series').to_s
+    Dir.glob(path + '/*.series').each do |f|
+      puts f + ' Is the file name'
+      author = Author.new
+      series = Series.new
+      books = Array.new
+      f = File.open(f, "r")
+      f.each_line do |line|
+        line_array = line.split(' ')
+          if line_array[0] == 'series:'
+            series.title = line.gsub('series:', '').chomp
+            puts series.title + ' Retrieved'
+          end
+          if line_array[0] == 'first_name:'
+            puts line
+            author.first_name = line.gsub('first_name:', '').chomp
+            puts author.first_name + ' Retrieved'
+          end
+      end
+      f.close
+      puts 'File closed!'
+    end #end loop through files
+    
+  end #end import_book_series
+
+  desc "OLD IMPORT TASK TO BE REWORKED"
+  task import_book_series_old: :environment do
   	path = Rails.root.join('lib/book_series').to_s
     Dir.glob(path + '/*.series').each do|f|
       @series_file = File.open(f, 'r')
       author = get_author
       series = get_series
+
       if author.id.to_i == 0
-        author.series << series
+        puts Author.get_name(author) + ' TESTING'
+        series.books << get_books
+        author.series << series 
+        if author.save
+         puts Author.get_name(author) + ' Saved!'
+        else
+         puts 'Error Saving Author!'
+        end
       else
         series = Series.where(title: series.title, author_id: author.id).first_or_initialize
         if series.id > 0
-          puts series.title + ' Already exists. No need to save.'
+          puts series.title + ' Series already exists. No need to save.'
         else
+          series.books << get_books
           author.series << series
+          if author.save
+            puts Author.get_name(author) + ' Saved!'
+          else
+            puts 'Problem saving Author!'
+          end
         end
       end
-
-
-
-      
-
       @series_file.close
-    end
-  end #end import_book_series
+    end #end loop through series files
+  end #end import_book_series_old
 
-end
+end #end namespace nbp
