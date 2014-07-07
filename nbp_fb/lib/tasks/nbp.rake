@@ -73,14 +73,60 @@ namespace :nbp do
             series.title = line.gsub('series:', '').chomp
             puts series.title + ' Retrieved'
           end
+          if line_array[0] == 'prefix:'
+            puts line
+            author.prefix = line.gsub('prefix:', '').chomp
+            puts author.prefix + ' Retrieved'
+          end
           if line_array[0] == 'first_name:'
             puts line
             author.first_name = line.gsub('first_name:', '').chomp
             puts author.first_name + ' Retrieved'
           end
+          if line_array[0] == 'middle_name:'
+            puts line
+            author.middle_name = line.gsub('middle_name:', '').chomp
+            puts author.middle_name + ' Retrieved'
+          end
+          if line_array[0] == 'last_name:'
+            puts line
+            author.last_name = line.gsub('last_name:', '').chomp
+            puts author.last_name + ' Retrieved'
+          end
+          if line_array[0] == 'suffix:'
+            puts line
+            author.suffix = line.gsub('suffix:', '').chomp
+            puts author.suffix + ' Retrieved'
+          end
+          if line[0].to_i > 0
+            puts line
+            sequence_number = line_array[0].gsub('.', '').chomp.to_i
+            puts sequence_number.to_s + ' Is the sequence number'
+            book_title = line.gsub(sequence_number.to_s + '.', '').chomp
+            puts book_title + ' Is the book title retrieved'
+            books << Book.new(sequence_number:sequence_number, title:book_title)
+            puts book_title + ' Added to the books Array!'
+          end
+      end
+      puts 'Books in ' + series.title + ' are as follows: '
+      books.each do |book|
+        puts book.sequence_number.to_s + ' ' + book.title
       end
       f.close
       puts 'File closed!'
+      puts 'Preparing to save.'
+      series.books << books
+      author.series << series
+      puts Author.get_name(author)
+      puts author.series[0].title
+      author.series[0].books.each do |book|
+        puts book.title
+      end
+      if author.save
+        puts 'Author Saved Successfully!'
+      else
+        puts 'There was a problem saving.'
+      end
     end #end loop through files
     
   end #end import_book_series
