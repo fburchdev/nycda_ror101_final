@@ -1,5 +1,4 @@
-<h1>Authors#index</h1>
-<p>Find me in app/views/authors/index.html.erb</p>
+<p>Series listings are available for the following authors:</p>
 <% @authors.each do |author| %>
 <% author_name = Author.get_name(author) %>
 <%= link_to author_name, author_path(author) %><br/>

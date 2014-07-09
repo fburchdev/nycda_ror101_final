@@ -1,8 +1,8 @@
-<h1>Series#show</h1>
-<p>Find me in app/views/series/show.html.erb</p>
 <% author = Author.find_by(id: @series.author_id )%>
 <% author_name = Author.get_name(author) %>
+<p>
 <%= link_to author_name, author_path(author) %>
+</p>
 <p>
 <%= @series.title %></p>
 <% @series.books.each do |book| %>
