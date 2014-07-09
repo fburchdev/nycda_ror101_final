@@ -1,0 +1,5 @@
+<p>Series listings are available for the following authors:</p>
+<% @authors.each do |author| %>
+<% author_name = Author.get_name(author) %>
+<%= link_to author_name, author_path(author) %><br/>
+<% end %>

@@ -1,0 +1,14 @@
+<% author = Author.find_by(id: @series.author_id )%>
+<% author_name = Author.get_name(author) %>
+<p>
+<%= link_to author_name, author_path(author) %>
+</p>
+<p>
+<%= @series.title %></p>
+<% @series.books.each do |book| %>
+<%= book.sequence_number.to_s + '. ' %>
+<%= book.title %><br/>
+<% end %>
+<p>
+<%= @series.notes %>
+</p>

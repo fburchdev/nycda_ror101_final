@@ -1,0 +1,9 @@
+<p>Series by 
+<%= Author.get_name(@author) + ' ' %>
+include the following:
+</p>
+<p>
+<% @author.series.each do |series| %>
+<%= link_to series.title, series_path(series) %><br/>
+<% end %>
+</p>
