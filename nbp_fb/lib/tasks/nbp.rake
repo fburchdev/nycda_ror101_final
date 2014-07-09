@@ -37,7 +37,7 @@ namespace :nbp do
           end
           if line_array[0] == 'suffix:'
             puts line
-            author.suffix = line.gsub('suffix:', '').strp
+            author.suffix = line.gsub('suffix:', '').strip
             puts author.suffix + ' Retrieved'
           end
           if line[0].to_i > 0
